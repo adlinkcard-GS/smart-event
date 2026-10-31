@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B2A4A">
+<title>Invitation · Smart Event</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<style>
+  /* ADLINKCARD · Smart Event · personal invitation page */
+  :root { --main:#1B2A4A; --accent:#C9A227; --bg:#F4F1EA; --ink:#1A1A1A; --soft:rgba(0,0,0,.6); }
+  * { box-sizing:border-box; }
+  html, body { margin:0; }
+  body { font-family:system-ui,-apple-system,"Segoe UI",Roboto,Tahoma,sans-serif; background:var(--bg); color:var(--ink);
+         min-height:100vh; padding-bottom:env(safe-area-inset-bottom,0px); }
+  html[dir=rtl] body { font-family:"Cairo",system-ui,Tahoma,sans-serif; }
+  .wrap { max-width:460px; margin:0 auto; }
+  .card { position:relative; color:#fff; text-align:center; overflow:hidden; padding:calc(26px + env(safe-area-inset-top,0px)) 24px 30px;
+          border-radius:0 0 30px 30px; box-shadow:0 14px 34px rgba(0,0,0,.25); }
+  .card .bgimg { position:absolute; inset:0; background-size:cover; background-position:center; }
+  .card .veil { position:absolute; inset:0; }
+  .card .in { position:relative; }
+  .logo img { max-height:56px; max-width:200px; object-fit:contain; }
+  .logo .brand { font-size:12px; letter-spacing:4px; font-weight:600; }
+  .inv { font-family:"Playfair Display",Georgia,serif; font-style:italic; font-size:18px; margin-top:22px; opacity:.92; }
+  .ev { font-family:"Playfair Display",Georgia,serif; font-weight:600; font-size:34px; line-height:1.15; margin-top:6px; }
+  html[dir=rtl] .inv, html[dir=rtl] .ev, html[dir=rtl] .gn { font-family:"Amiri","Cairo",serif; font-style:normal; }
+  .dv { display:flex; align-items:center; gap:9px; width:190px; margin:16px auto; }
+  .dv i { flex:1; height:1px; } .dv b { width:7px; height:7px; transform:rotate(45deg); }
+  .gl { font-size:11px; letter-spacing:3px; text-transform:uppercase; opacity:.78; }
+  html[dir=rtl] .gl { letter-spacing:0; font-size:13px; }
+  .gn { font-family:"Playfair Display",Georgia,serif; font-size:25px; margin-top:4px; }
+  .vip { display:inline-block; margin-top:10px; font-size:11px; font-weight:700; letter-spacing:2px; padding:3px 12px; border-radius:20px; color:#1A1A1A; }
+  .row { display:flex; gap:9px; margin-top:18px; }
+  .cell { flex:1; border-radius:14px; padding:9px 4px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); backdrop-filter:blur(4px); }
+  .cell small { display:block; font-size:10px; letter-spacing:2px; text-transform:uppercase; opacity:.78; }
+  html[dir=rtl] .cell small { letter-spacing:0; font-size:12px; }
+  .cell b { font-size:15px; }
+  .venue { font-size:13px; margin-top:14px; opacity:.9; }
+  .lang { position:absolute; top:calc(14px + env(safe-area-inset-top,0px)); right:14px; z-index:3; display:flex; direction:ltr;
+          border-radius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.45); background:rgba(0,0,0,.2); }
+  .lang button { border:0; background:transparent; color:#fff; font:inherit; font-size:12px; padding:4px 11px; cursor:pointer; opacity:.75; }
+  .lang button.on { background:rgba(255,255,255,.92); color:#1A1A1A; opacity:1; font-weight:700; }
+  .sec { margin:18px 18px 0; background:#fff; border-radius:20px; padding:18px; box-shadow:0 6px 18px rgba(0,0,0,.07); text-align:center; }
+  .sec h3 { margin:0 0 4px; font-size:16px; }
+  .sec p { margin:0 0 14px; font-size:13px; color:#6B7280; }
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .lux { display:flex; align-items:center; justify-content:center; gap:9px; border-radius:14px; padding:13px; font:inherit; font-size:14px;
+         font-weight:700; border:0; width:100%; cursor:pointer; text-decoration:none; }
+  .lux svg { width:18px; height:18px; fill:currentColor; flex:none; }
+  .lux.ghost { background:#fff; border:1.5px solid #D5D9E0; color:#374151; }
+  .lux.black { background:#000; color:#fff; }
+  .lux.hw { background:#fff; color:#1A1A1A; border:1.5px solid #1A1A1A; width:auto; padding:13px 16px; }
+  .wrow { display:grid; grid-template-columns:1fr auto; gap:10px; margin-top:10px; }
+  .wallet small { display:block; font-size:10px; font-weight:400; opacity:.7; letter-spacing:1px; }
+  .wallet .tx { text-align:start; line-height:1.15; }
+  .done { font-size:15px; font-weight:700; }
+  .change { background:none; border:0; color:#6B7280; text-decoration:underline; font:inherit; font-size:12px; margin-top:8px; cursor:pointer; }
+  .acts { display:grid; gap:10px; }
+  .qrsec { margin:18px 18px 0; border-radius:22px; padding:20px 16px; text-align:center; color:#fff; }
+  .qrsec .h { font-size:12px; letter-spacing:2.5px; text-transform:uppercase; font-weight:700; }
+  html[dir=rtl] .qrsec .h { letter-spacing:0; font-size:14px; }
+  .tile { position:relative; width:220px; height:220px; margin:12px auto 0; background:#fff; border-radius:18px; box-shadow:0 8px 22px rgba(0,0,0,.28); }
+  .tile canvas { position:absolute; inset:0; width:220px; height:220px; }
+  .qrsec .hint { font-size:12px; opacity:.85; margin-top:12px; }
+  .foot { text-align:center; font-size:10.5px; letter-spacing:1.5px; opacity:.45; padding:20px 0 24px; }
+  .msg { background:#fff; border-radius:16px; padding:20px; margin:40px 18px; line-height:1.7; text-align:center; }
+  .wait { display:flex; justify-content:center; padding:140px 0; }
+  .dot { width:10px; height:10px; margin:0 4px; border-radius:50%; background:var(--main); animation:b 1s infinite alternate; }
+  .dot:nth-child(2) { animation-delay:.2s; } .dot:nth-child(3) { animation-delay:.4s; }
+  @keyframes b { to { opacity:.2; } }
+  @media (prefers-reduced-motion: reduce) { .dot { animation:none; } }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"><div class="wait"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+<script>
+  /* =========================================================
+     Paste YOUR Smart Event web app link (ends with /exec):
+     ========================================================= */
+  var API = "PASTE_YOUR_WEB_APP_LINK_HERE";
+
+  var Q = new URLSearchParams(location.search);
+  var CARD = (Q.get("c") || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  var app = document.getElementById("app");
+  var LANG = "en", DATA = null, BACK = "";
+
+  var T = {
+    en: { invited: "You are invited to", dear: "Dear", date: "Date", time: "Time", table: "Table", vip: "VIP GUEST",
+          rsvpQ: "Will you attend?", rsvpP: "Please let us know", yes: "I'll attend", no: "Sorry, I can't",
+          yesDone: "✓ See you there!", noDone: "We'll miss you", change: "Change my answer",
+          map: "Find the venue", cal: "Add to calendar", wallet: "Add to Wallet", walletSub: "APPLE · GOOGLE", huawei: "Huawei",
+          download: "Download my invitation", entrance: "Your entrance pass", hint: "Show this at the entrance",
+          closed: "This event is closed.", invalid: "This invitation link is not valid.", offline: "Could not load the invitation. Check your internet and try again." },
+    ar: { invited: "يسعدنا دعوتكم إلى", dear: "حضرة", date: "التاريخ", time: "الوقت", table: "الطاولة", vip: "ضيف VIP",
+          rsvpQ: "هل ستحضرون؟", rsvpP: "يرجى تأكيد الحضور", yes: "سأحضر", no: "أعتذر عن الحضور",
+          yesDone: "✓ بانتظاركم!", noDone: "سنفتقدكم", change: "تغيير الإجابة",
+          map: "موقع الحفل", cal: "أضف إلى التقويم", wallet: "أضف إلى المحفظة", walletSub: "APPLE · GOOGLE", huawei: "هواوي",
+          download: "تحميل الدعوة", entrance: "بطاقة الدخول", hint: "اعرضها عند المدخل",
+          closed: "هذا الحدث مغلق.", invalid: "رابط الدعوة غير صالح.", offline: "تعذّر تحميل الدعوة. تحقق من الإنترنت وحاول مجدداً." }
+  };
+  var MONTHS = { en: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+                 ar: ["كانون الثاني","شباط","آذار","نيسان","أيار","حزيران","تموز","آب","أيلول","تشرين الأول","تشرين الثاني","كانون الأول"] };
+  var DAYS = { en: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"], ar: ["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"] };
+
+  var ICON = {
+    pin: '<path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>',
+    cal: '<path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14zM7 12h5v5H7z"/>',
+    wallet: '<path d="M21 7H5a1 1 0 0 1 0-2h14V3H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h16a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zm-3 8a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>',
+    phone: '<path d="M17 1H7a2 2 0 0 0-2 2v18c0 1.1.9 2 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm-5 21a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5-4H7V4h10z"/>',
+    down: '<path d="M5 20h14v-2H5zm7-18-5.5 6h4v6h3V8h4z" transform="rotate(180 12 11)"/>',
+    yes: '<path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/>',
+    no: '<path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z"/>'
+  };
+  function svg(k) { return '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICON[k] + "</svg>"; }
+  function esc(s) { return String(s || "").replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function lum(h) { h = h.replace("#", ""); return 0.299 * parseInt(h.substr(0, 2), 16) + 0.587 * parseInt(h.substr(2, 2), 16) + 0.114 * parseInt(h.substr(4, 2), 16); }
+  function on(h) { return lum(h) > 160 ? "#1A1A1A" : "#FFFFFF"; }
+  function shade(h, f) { h = h.replace("#", ""); return "rgb(" + [0, 2, 4].map(function (i) { var x = parseInt(h.substr(i, 2), 16);
+    return Math.max(0, Math.min(255, Math.round(f < 0 ? x * (1 + f) : x + (255 - x) * f))); }).join(",") + ")"; }
+  function initials(n) { return String(n || "?").trim().split(/\s+/).slice(0, 2).map(function (w) { return w.charAt(0); }).join("").toUpperCase(); }
+  function http(u) { u = String(u || "").trim(); return !u ? "" : /^https?:\/\//i.test(u) ? u : "https://" + u; }
+  function prettyDate(iso) {
+    var m = String(iso || "").match(/^(\d{4})-(\d{2})-(\d{2})$/); if (!m) return iso || "";
+    var d = new Date(+m[1], +m[2] - 1, +m[3]);
+    return DAYS[LANG][d.getDay()] + " " + (+m[3]) + " " + MONTHS[LANG][+m[2] - 1];
+  }
+  function prettyTime(t) {
+    var m = String(t || "").match(/^(\d{1,2}):(\d{2})$/); if (!m) return t || "";
+    var h = +m[1]; return ((h + 11) % 12 + 1) + ":" + m[2] + (LANG === "ar" ? (h < 12 ? " ص" : " م") : (h < 12 ? " AM" : " PM"));
+  }
+  function msg(text) { app.innerHTML = '<div class="msg">' + text + "</div>"; }
+
+  /* ---------- styled entrance QR (same look as the invitation) ---------- */
+  function drawQR(cv, text, d) {
+    var px = 220, dpr = window.devicePixelRatio || 1; cv.width = px * dpr; cv.height = px * dpr;
+    var g = cv.getContext("2d"); g.scale(dpr, dpr);
+    var q = qrcode(0, "H"); q.addData(text); q.make();
+    var n = q.getModuleCount(), pad = 26, cs = (px - 2 * pad) / n, mid = Math.floor(n / 2), half = Math.floor(n * 0.24 / 2);
+    var dark = lum(d.colors.main) < 140 ? d.colors.main : "#1A1A1A", eye = lum(d.colors.accent) < 170 ? d.colors.accent : dark;
+    function rr(x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+    function finder(r, c) { return (r < 8 && c < 8) || (r < 8 && c >= n - 8) || (r >= n - 8 && c < 8); }
+    g.fillStyle = dark;
+    for (var r = 0; r < n; r++) for (var c = 0; c < n; c++) {
+      if (finder(r, c) || (Math.abs(r - mid) <= half && Math.abs(c - mid) <= half) || !q.isDark(r, c)) continue;
+      rr(pad + c * cs + cs * .04, pad + r * cs + cs * .04, cs * .92, cs * .92, cs * .25); g.fill();
+    }
+    [[0, 0], [0, n - 7], [n - 7, 0]].forEach(function (f) {
+      var X = pad + f[1] * cs, Y = pad + f[0] * cs;
+      g.strokeStyle = eye; g.lineWidth = cs; rr(X + cs * .5, Y + cs * .5, cs * 6, cs * 6, cs * 1.6); g.stroke();
+      g.fillStyle = dark; rr(X + cs * 2, Y + cs * 2, cs * 3, cs * 3, cs * .9); g.fill();
+    });
+    g.strokeStyle = d.colors.accent; g.lineWidth = 5; g.lineCap = "round";
+    [[10, 10, 1, 1], [px - 10, 10, -1, 1], [10, px - 10, 1, -1], [px - 10, px - 10, -1, -1]].forEach(function (k) {
+      g.beginPath(); g.moveTo(k[0] + k[2] * 26, k[1]); g.lineTo(k[0], k[1]); g.lineTo(k[0], k[1] + k[3] * 26); g.stroke();
+    });
+    var b = (2 * half + 1) * cs, cx = pad + mid * cs + cs / 2, cy = cx, inner = b - cs * 1.4;
+    g.fillStyle = "#fff"; rr(cx - b / 2, cy - b / 2, b, b, cs * 1.2); g.fill();
+    if (d.logo) {
+      var im = new Image();
+      im.onload = function () { var s = Math.min(inner / im.width, inner / im.height); g.drawImage(im, cx - im.width * s / 2, cy - im.height * s / 2, im.width * s, im.height * s); };
+      im.src = d.logo;
+    } else {
+      g.fillStyle = d.colors.main; rr(cx - inner / 2, cy - inner / 2, inner, inner, cs); g.fill();
+      g.fillStyle = on(d.colors.main); g.font = "600 " + Math.round(inner * .42) + "px Georgia,serif";
+      g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(initials(d.event.client || d.event.name), cx, cy + 1);
+    }
+  }
+
+  /* ---------- calendar file (.ics) ---------- */
+  function addToCalendar(d) {
+    var m = String(d.event.date || "").match(/^(\d{4})-(\d{2})-(\d{2})$/); if (!m) return;
+    var t = String(d.event.time || "19:00").match(/^(\d{1,2}):(\d{2})$/) || [0, "19", "00"];
+    var pad = function (x) { return ("0" + x).slice(-2); };
+    var start = m[1] + m[2] + m[3] + "T" + pad(t[1]) + t[2] + "00";
+    var endH = Math.min(23, +t[1] + 4), end = m[1] + m[2] + m[3] + "T" + pad(endH) + t[2] + "00";
+    var e = function (s) { return String(s || "").replace(/[\\;,]/g, function (c) { return "\\" + c; }).replace(/\n/g, "\\n"); };
+    var ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//ADLINKCARD//Smart Event//EN", "BEGIN:VEVENT",
+      "UID:" + d.card + "@adlinkcard", "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z",
+      "DTSTART:" + start, "DTEND:" + end, "SUMMARY:" + e(d.event.name), "LOCATION:" + e(d.event.venue),
+      "DESCRIPTION:" + e(d.link), "BEGIN:VALARM", "TRIGGER:-PT3H", "ACTION:DISPLAY", "DESCRIPTION:" + e(d.event.name), "END:VALARM",
+      "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
+    a.download = (d.event.name || "event").replace(/[\\\/:*?"<>|]/g, "") + ".ics";
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  function downloadInvite(d, btn) {
+    btn.disabled = true;
+    fetch(API + "?api=image&card=" + encodeURIComponent(d.card)).then(function (r) { return r.json(); }).then(function (r) {
+      btn.disabled = false;
+      if (!r.img) return;
+      var a = document.createElement("a"); a.href = r.img; a.download = "Invitation - " + (d.name || "guest").replace(/[\\\/:*?"<>|]/g, "") + ".jpg";
+      document.body.appendChild(a); a.click(); a.remove();
+    }).catch(function () { btn.disabled = false; });
+  }
+
+  function rsvp(answer) {
+    var box = document.getElementById("rsvpBox"); box.style.opacity = ".5";
+    fetch(API, { method: "POST", body: JSON.stringify({ action: "rsvp", card: CARD, answer: answer }) })
+      .then(function (r) { return r.json(); })
+      .then(function (r) { if (r.ok) { DATA.rsvp = r.rsvp; try { localStorage.setItem("sev_" + CARD, JSON.stringify(DATA)); } catch (e) {} } render(); })
+      .catch(function () { box.style.opacity = "1"; });
+  }
+
+  /* ---------- the page ---------- */
+  function render() {
+    var d = DATA, saved = null;
+    try { saved = localStorage.getItem("sev_lang_" + CARD); } catch (e) {}
+    LANG = saved || (d.event.lang === "AR" ? "ar" : "en");
+    var t = T[LANG], m = d.colors.main, a = d.colors.accent;
+    document.documentElement.lang = LANG; document.documentElement.dir = LANG === "ar" ? "rtl" : "ltr";
+    document.documentElement.style.setProperty("--main", m); document.documentElement.style.setProperty("--accent", a);
+    document.documentElement.style.setProperty("--bg", d.colors.bg);
+    document.querySelector('meta[name="theme-color"]').setAttribute("content", m);
+    document.title = d.event.name + " · " + d.name;
+    var who = esc(d.name) + (d.accompany ? " &amp; " + esc(d.accompany) : "");
+    var cells = "";
+    if (d.event.date) cells += '<div class="cell"><small>' + t.date + "</small><b>" + esc(prettyDate(d.event.date)) + "</b></div>";
+    if (d.event.time) cells += '<div class="cell"><small>' + t.time + '</small><b dir="ltr">' + esc(prettyTime(d.event.time)) + "</b></div>";
+    if (d.table) cells += '<div class="cell"><small>' + t.table + "</small><b>" + esc(d.table) + "</b></div>";
+    var bgLayer = BACK
+      ? '<div class="bgimg" style="background-image:url(' + BACK + ')"></div><div class="veil" style="background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.5) 55%,rgba(0,0,0,.72))"></div>'
+      : '<div class="bgimg" style="background:linear-gradient(150deg,' + shade(m, .14) + " 0%," + m + " 45%," + shade(m, -.4) + ' 100%)"></div>' +
+        '<div class="veil" style="background:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 1px,transparent 1px 14px),radial-gradient(circle at 85% 6%,' + a + '55,transparent 45%)"></div>';
+    var r;
+    if (d.rsvp === "Yes") r = '<div class="done" style="color:#1E7B4F">' + t.yesDone + '</div><button class="change" data-a="no">' + t.change + "</button>";
+    else if (d.rsvp === "No") r = '<div class="done" style="color:#6B7280">' + t.noDone + '</div><button class="change" data-a="yes">' + t.change + "</button>";
+    else r = "<h3>" + t.rsvpQ + "</h3><p>" + t.rsvpP + '</p><div class="two"><button class="lux" data-a="yes" style="background:' + m + ";color:" + on(m) + '">' +
+             svg("yes") + t.yes + '</button><button class="lux ghost" data-a="no">' + svg("no") + t.no + "</button></div>";
+    var acts = [];
+    if (d.event.map) acts.push('<a class="lux ghost" href="' + esc(http(d.event.map)) + '" target="_blank" rel="noopener">' + svg("pin") + t.map + "</a>");
+    if (d.event.date) acts.push('<button class="lux ghost" id="calBtn">' + svg("cal") + t.cal + "</button>");
+    if (d.hasInvite) acts.push('<button class="lux ghost" id="dlBtn">' + svg("down") + t.download + "</button>");
+    var wallet = d.pass ? '<div class="wrow"><a class="lux black wallet" href="' + esc(d.pass) + '" target="_blank" rel="noopener">' + svg("wallet") +
+      '<div class="tx">' + t.wallet + "<small>" + t.walletSub + "</small></div></a>" +
+      (d.huawei ? '<a class="lux hw" href="' + esc(d.huawei) + '">' + svg("phone") + t.huawei + "</a>" : "") + "</div>" : "";
+    app.innerHTML =
+      '<div class="card">' + bgLayer + '<div class="lang"><button data-l="en"' + (LANG === "en" ? ' class="on"' : "") + '>EN</button><button data-l="ar"' +
+        (LANG === "ar" ? ' class="on"' : "") + ">ع</button></div>" +
+        '<div class="in"><div class="logo">' + (d.logo ? '<img alt="' + esc(d.event.client || "Logo") + '" src="' + d.logo + '">' :
+          '<div class="brand">' + esc((d.event.client || "SMART EVENT").toUpperCase()) + "</div>") + "</div>" +
+        '<div class="inv">' + t.invited + '</div><div class="ev" dir="auto">' + esc(d.event.name) + "</div>" +
+        '<div class="dv"><i style="background:linear-gradient(90deg,transparent,' + a + ')"></i><b style="background:' + a + '"></b><i style="background:linear-gradient(90deg,' + a + ',transparent)"></i></div>' +
+        '<div class="gl">' + t.dear + '</div><div class="gn" dir="auto">' + who + "</div>" +
+        (/vip/i.test(d.category) ? '<div class="vip" style="background:' + a + '">★ ' + t.vip + "</div>" : "") +
+        (cells ? '<div class="row">' + cells + "</div>" : "") +
+        (d.event.venue ? '<div class="venue" dir="auto">' + esc(d.event.venue) + "</div>" : "") + "</div></div>" +
+      '<div class="sec" id="rsvpBox">' + r + "</div>" +
+      (acts.length || wallet ? '<div class="sec"><div class="acts">' + acts.join("") + "</div>" + wallet + "</div>" : "") +
+      '<div class="qrsec" style="background:linear-gradient(140deg,' + shade(m, .1) + "," + shade(m, -.3) + ')"><div class="h">' + t.entrance + "</div>" +
+        '<div class="tile"><canvas id="qr" aria-label="Entrance QR code"></canvas></div><div class="hint">' + t.hint + "</div></div>" +
+      '<div class="foot">POWERED BY ADLINKCARD · GROW SMARTER</div>';
+    Array.prototype.forEach.call(document.querySelectorAll("[data-a]"), function (b) { b.onclick = function () { rsvp(b.getAttribute("data-a")); }; });
+    Array.prototype.forEach.call(document.querySelectorAll(".lang button"), function (b) {
+      b.onclick = function () { try { localStorage.setItem("sev_lang_" + CARD, b.getAttribute("data-l")); } catch (e) {} render(); };
+    });
+    var cal = document.getElementById("calBtn"); if (cal) cal.onclick = function () { addToCalendar(d); };
+    var dl = document.getElementById("dlBtn"); if (dl) dl.onclick = function () { downloadInvite(d, dl); };
+    if (window.qrcode) drawQR(document.getElementById("qr"), d.link, d);
+  }
+
+  function load() {
+    var cached = null;
+    try { cached = JSON.parse(localStorage.getItem("sev_" + CARD) || "null"); } catch (e) {}
+    if (cached && cached.ok) { DATA = cached; render(); }
+    fetch(API + "?api=invite&card=" + encodeURIComponent(CARD)).then(function (r) { return r.json(); }).then(function (d) {
+      if (!d.ok) {
+        try { localStorage.removeItem("sev_" + CARD); } catch (e) {}
+        msg(d.reason === "closed" ? T.en.closed + "<br>" + T.ar.closed : T.en.invalid + "<br>" + T.ar.invalid); return;
+      }
+      try { localStorage.setItem("sev_" + CARD, JSON.stringify(d)); } catch (e) {}
+      var changed = !cached || JSON.stringify(cached) !== JSON.stringify(d);
+      DATA = d;
+      if (changed) render();
+      if (d.hasBack && !BACK) {
+        fetch(API + "?api=back&event=" + encodeURIComponent(d.event.code)).then(function (r) { return r.json(); })
+          .then(function (b) { if (b.img) { BACK = b.img; render(); } }).catch(function () {});
+      }
+    }).catch(function () { if (!cached) msg(T.en.offline + "<br>" + T.ar.offline); });
+  }
+
+  if (/^[a-z0-9]{6}$/.test(CARD)) load();
+  else msg("<b>ADLINKCARD · Smart Event</b><br>Open your personal invitation link.<br>افتح رابط دعوتك الشخصية.");
+</script>
+</body>
+</html>
